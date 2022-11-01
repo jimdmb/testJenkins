@@ -2,7 +2,7 @@ def gv
 
 pipeline {
     agent {
-        docker { image 'ubuntu:latest' }
+        node { label 'ubuntu-latest-node' }
     }
     parameters {
         booleanParam(name: 'executeTests', defaultValue: false, description: '')
