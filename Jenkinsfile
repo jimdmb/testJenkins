@@ -1,14 +1,12 @@
 def gv
 
 pipeline {
-    agent none
- 
+    agent { label "ubuntu-latest-node" }
     parameters {
         booleanParam(name: 'executeTests', defaultValue: false, description: '')
     }
     stages {
         stage("init") {
-            agent { label "ubuntu-latest-node" }
             steps {
                 script {
                    gv = load "script.groovy" 
@@ -23,7 +21,6 @@ pipeline {
             }
         }
         stage("build") {
-            agent { label "ubuntu-latest-node" }
             steps {
                 script {
                     gv.buildApp()
@@ -31,7 +28,6 @@ pipeline {
             }
         }
         stage("test") {
-            agent { label "ubuntu-latest-node" }
             when {
                 expression {
                     params.executeTests
@@ -44,7 +40,6 @@ pipeline {
             }
         }
         stage("deploy") {
-            agent { label "ubuntu-latest-node" }
             steps {
                 script {
                     gv.deployApp()
